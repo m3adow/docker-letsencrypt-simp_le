@@ -9,8 +9,9 @@ Certs are saved in `/certs` so you should mount a persistent volume there.
 
 If you only want to get some certificates, simply run the container like this:
 
-	docker run -ti -p 80:80 -v /etc/nginx/certs:/certs m3adow/letsencrypt-simp_le \
-    -f account_key.json  -f chain.pem -f cert.pem -f key.pem --email a@example.org \
+	docker run -ti -p 80:80 -v /etc/nginx/certs:/certs \
+	m3adow/letsencrypt-simp_le -f account_key.json  \
+	-f chain.pem -f cert.pem -f key.pem --email a@example.org \
     -d adminswerk.de -d test.adminswerk.de
 
 #### Repo Refresh
