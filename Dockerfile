@@ -12,7 +12,7 @@ RUN apk --update add python \
 		gcc \
 		libffi-dev \
 		darkhttpd \
-	&& wget -qO- https://codeload.github.com/kuba/simp_le/tar.gz/master | tar xz \
+	&& wget -qO- https://codeload.github.com/zenhack/simp_le/tar.gz/master | tar xz \
 	&& pip install -e /simp_le-master/ \
 	&& mkdir /certs \
 	&& apk --purge del musl-dev openssl-dev libffi-dev gcc python-dev py-pip
