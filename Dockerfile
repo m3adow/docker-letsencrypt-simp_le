@@ -2,20 +2,24 @@ FROM alpine:latest
 MAINTAINER m3adow
 
 # Long command to keep the FS deltas small
-RUN apk --update add python \
-		python-dev \
+RUN apk add --no-cache \
+    python \
 		py-setuptools \
-		py-pip \
-		openssl-dev \
+		py2-pip \
 		openssl \
-		musl-dev \
-		gcc \
-		libffi-dev \
 		darkhttpd \
-	&& wget -qO- https://codeload.github.com/zenhack/simp_le/tar.gz/master | tar xz \
-	&& pip install -e /simp_le-master/ \
+    ca-certificates \
+    git \
+  && apk add --no-cache --virtual build_deps \
+    musl-dev \
+    openssl-dev \
+    libffi-dev \
+    gcc \
+    python-dev \
+  && pip install git+https://github.com/zenhack/simp_le/ \
 	&& mkdir /certs \
-	&& apk --purge del musl-dev openssl-dev libffi-dev gcc python-dev py-pip
+	&& apk --purge del build_deps \
+  && rm -rf /root/.cache
 WORKDIR /certs
 COPY ["./startme.sh", "/usr/local/bin/"]
 ENTRYPOINT ["/usr/local/bin/startme.sh"]
